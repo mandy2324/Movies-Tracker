@@ -6,6 +6,8 @@ public interface MovieDAO {
 
 	//Methods for manipulating movie data
 	public List<Movie> getAllMovies();
-	public Movie getMovieById();
-	public Movie getMovieByTitle();
+	public Movie getMovieById(int movieId);
+	public Movie getMovieByTitle(String title);
+	public Movie showMovie(int id);
+	
 }
