@@ -22,5 +22,10 @@ public class UserDAOClass implements UserDAO {
 		return null;
 	}
 
+	@Override
+	public User addUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

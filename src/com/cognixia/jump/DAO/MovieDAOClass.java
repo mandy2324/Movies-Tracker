@@ -11,13 +11,19 @@ public class MovieDAOClass implements MovieDAO{
 	}
 
 	@Override
-	public Movie getMovieById() {
+	public Movie getMovieById(int movieId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Movie getMovieByTitle() {
+	public Movie getMovieByTitle(String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Movie showMovie(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
