@@ -1,4 +1,7 @@
 .classpath
 .project
-
+.metadata
 resources/config.properties
+*.class
+
+tmp/
