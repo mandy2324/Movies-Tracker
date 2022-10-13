@@ -8,6 +8,7 @@ public class Movie {
 	private int length;
 	private String genre;
 	
+	//Constructor
 	public Movie(int id, String title, int length, String genre) {
 		super();
 		this.id = id;
@@ -16,6 +17,7 @@ public class Movie {
 		this.genre = genre;
 	}
 
+	//Getters and Setters
 	public int getId() {
 		return id;
 	}
