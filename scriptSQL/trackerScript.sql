@@ -7,7 +7,6 @@ CREATE TABLE `movies` (
   `title` varchar(255) DEFAULT NULL,
   `length` time(5) DEFAULT NULL,
   `summary` varchar(255) DEFAULT NULL,
-  `rating` int DEFAULT NULL,
   `genre` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`movieId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -24,6 +23,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `tracker` (
   `status` int DEFAULT NULL,
+  `rating` int DEFAULT NULL,
   `movieIdF` int DEFAULT NULL,
   `userIdF` int DEFAULT NULL,
   KEY `userId_idx` (`userIdF`),
