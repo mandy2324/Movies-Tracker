@@ -1,5 +1,6 @@
 package com.cognixia.jump.input;
 
+import com.cognixia.jump.userlogin.loginmenu;
 import java.util.Scanner;
 
 public class Commands {
@@ -16,6 +17,16 @@ public class Commands {
 			command = scan.nextLine().toLowerCase();
 			if (command.equals("help")) {
 				// Prints all commands
+				System.out.println("Available commands (Case Insensitive):\n"
+						+ "list: Prints the list of all movies in the user's list.\n"
+						+ "database: Prints all movies available in our database.\n"
+						+ "select: Selects a movie. This movie will be the target for future commands.\n"
+						+ "show/view: Prints details of selected movie.\n"
+						+ "add: Adds selected movie to user's list.\n"
+						+ "remove: Removes selected movie from user's list.\n"
+						+ "status: Changes watch status of selected movie (Plan to Watch, Watched, On Hold).\n"
+						+ "rate: Adds or changes user rating of selected movie (1 to 10).\n"
+						+ "logout/exit: Exits the program.");
 			}
 			/* VIEW DETAILS */
 			else if (command.equals("list")) {
