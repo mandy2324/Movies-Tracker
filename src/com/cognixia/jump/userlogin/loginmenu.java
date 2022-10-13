@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
 
+import com.cognixia.jump.DAO.User;
+
 public class loginmenu {
 	public static int id = 0;
 
