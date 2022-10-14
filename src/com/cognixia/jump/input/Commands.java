@@ -40,6 +40,9 @@ public class Commands {
 			}
 			else if (command.equals("database")) {
 				// Show all movies in database
+				for (Movie movie:movieDAO.getAllMovies()) {
+					System.out.println(movie);
+				}
 			}
 			
 			/* TRACKER */
