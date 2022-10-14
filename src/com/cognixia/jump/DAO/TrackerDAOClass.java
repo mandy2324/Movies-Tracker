@@ -68,12 +68,12 @@ public class TrackerDAOClass implements TrackerDAO{
 	}
 
 	@Override
-	public boolean removeUserMovie(int user_id, int movie_id) {
+	public boolean removeUserMovie(Tracker tracked) {
 		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("DELETE from tracker WHERE user_id = ? and movie_id = ?");
-			pstmt.setInt(1, user_id);
-			pstmt.setInt(2, movie_id);
+			PreparedStatement pstmt = conn.prepareStatement("DELETE from tracker WHERE userIdF = ? and movieIdF = ?");
+			pstmt.setInt(1, tracked.getUser_id());
+			pstmt.setInt(2, tracked.getMovie_id());
 			
 			int i = pstmt.executeUpdate();
 			
@@ -82,7 +82,7 @@ public class TrackerDAOClass implements TrackerDAO{
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Movie with id = " + movie_id + " not found for this user.");
+			System.out.println("Movie with id = " + tracked.getMovie_id() + " not found for this user.");
 		}
 		
 		return false;
