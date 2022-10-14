@@ -1,21 +1,21 @@
 package com.cognixia.jump.DAO;
 
 public class Tracker {
-
+	//Variables
 	private int movie_id;
 	private int user_id;
 	private int status;
 	private int rating;
 	
+	//Constructor
 	public Tracker(int movie_id, int user_id) {
 		super();
 		this.movie_id = movie_id;
 		this.user_id = user_id;
-		this.rating = 0;
-		this.status = 0;
 		
 	}
 
+	//Getters and Setters
 	public int getMovie_id() {
 		return movie_id;
 	}
