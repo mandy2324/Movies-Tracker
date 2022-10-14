@@ -5,18 +5,21 @@ import com.cognixia.jump.userlogin.loginmenu;
 import java.util.Scanner;
 
 public class Commands {
-	
+	static Scanner scan = new Scanner(System.in);
+
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
+
 		System.out.println("Welcome to Movies-Tracker.");
 		System.out.println("Please login to continue");
 		String command = "";
 		// LOGIN METHOD HERE
-		
-		
+		User user = loginmenu.userPrompt(scan);
+
 		MovieDAO movieDAO = new MovieDAOClass();
+		TrackerDAO trackerDAO = new TrackerDAOClass();
 		Movie selected = null;
-		
+		Tracker tracker = null;
+
 		System.out.println("Welcome, USERNAME. Choose a command or type \"help\" to view commands");
 		while (true) {
 			System.out.print("Command => ");
@@ -37,14 +40,13 @@ public class Commands {
 			/* VIEW DETAILS */
 			else if (command.equals("list")) {
 				// Shows list of all movies in user list
-			}
-			else if (command.equals("database")) {
+			} else if (command.equals("database")) {
 				// Show all movies in database
-				for (Movie movie:movieDAO.getAllMovies()) {
+				for (Movie movie : movieDAO.getAllMovies()) {
 					System.out.println(movie);
 				}
 			}
-			
+
 			/* TRACKER */
 			else if (command.equals("select")) {
 				// Selects movie for future commands
@@ -61,41 +63,70 @@ public class Commands {
 				}
 				if (selected == null) {
 					System.out.println("No movie found by that title. Aborting command...");
-				}
-				else {
+					continue;
+				} else {
 					System.out.println(selected.getTitle() + "selected");
+					// Create Tracker object between user and selected movie
+					tracker = new Tracker(selected.getId(), user.getId());
 				}
 			}
-			/* 
-			 * BELOW COMMANDS WILL REQUIRE A MOVIE TO BE SELECTED 
-			*/
+			/*
+			 * BELOW COMMANDS WILL REQUIRE A MOVIE TO BE SELECTED
+			 */
 			else if (selected != null) {
 				if (command.equals("show") || command.equals("view")) {
 					// Prints movie details
 					System.out.println(selected);
-				}
-				else if (command.equals("add")) {
+				} else if (command.equals("add")) {
 					// Adds movie from database into user's movie list
+					// Add tracker to database
 				}
-				else if (command.equals("remove")) {
-					// Removes movie from user's movie list
-					// Note: Check if movie exists in list first
+				// if trackerDAO method to check if tracker exists in database
+				if (trackerDAO.trackerExists(tracker)) {
+					if (command.equals("remove")) {
+						// Removes movie from user's movie list
+						// Note: Check if movie exists in list first
+						trackerDAO.removeUserMovie(tracker);
+					} else if (command.equals("status")) {
+						// Changes user status
+						// Note: Convert database int to readable string ("Plan to watch", "Completed")
+						System.out.println(tracker.getStatus());
+					} else if (command.equals("changestatus")) {
+						// 1: Plan to Watch
+						// 2: Watched
+						// 3: On Hold
+						System.out.print(
+								"Choose status (Plan to Watch, Watched, or On Hold) for " + selected.getTitle() + ": ");
+						String newStatus = scan.nextLine();
+
+						if (newStatus.equals("1") || newStatus.equalsIgnoreCase("plan to watch")
+								|| newStatus.equalsIgnoreCase("ptw")) {
+							trackerDAO.userMovieStatus(tracker, 1);
+						} else if (newStatus.equals("2") || newStatus.equalsIgnoreCase("watched")
+								|| newStatus.equalsIgnoreCase("w")) {
+							trackerDAO.userMovieStatus(tracker, 2);
+						} else if (newStatus.equals("3") || newStatus.equalsIgnoreCase("on hold")
+								|| newStatus.equalsIgnoreCase("h")) {
+							trackerDAO.userMovieStatus(tracker, 3);
+						} else {
+							System.out.println("Not a valid status. Aborting command...");
+							continue;
+						}
+					} else if (command.equals("rate")) {
+						// Allows user to add/change rating of movie
+						System.out.print("Choose rating for " + selected.getTitle() + ": ");
+						int newRating = scan.nextInt();
+						trackerDAO.userMovieRating(tracker, newRating);
+					}
 				}
-				else if (command.equals("status")) {
-					// Changes user status
-					// Note: Convert database int to readable string ("Plan to watch", "Completed")
-				}
-				else if (command.equals("rate")) {
-					// Allows user to add/change rating of movie
-				}
+
 			}
-			
+
 			else if (command == "logout" || command == "exit") {
 				// Logout user, end program
 				scan.close();
 				return;
-			}
-			else {
+			} else {
 				System.out.println("Command not found");
 			}
 		}
