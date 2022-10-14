@@ -1,4 +1,4 @@
-package src.com.cognixia.jump.DAO;
+package com.cognixia.jump.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import src.com.cognixia.jump.connection.ConnManagerWithProperties;
+import com.cognixia.jump.connection.ConnManagerWithProperties;
 
 public class Admin extends User {
 

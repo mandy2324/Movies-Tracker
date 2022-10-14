@@ -44,7 +44,7 @@ public class Tracker {
 		}
 		else {
 			// Status Error, not one of the above options
-			return null;
+			return "Pending";
 		}
 	}
 

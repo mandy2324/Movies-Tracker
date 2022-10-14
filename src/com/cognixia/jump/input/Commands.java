@@ -20,7 +20,7 @@ public class Commands {
 		Movie selected = null;
 		Tracker tracker = null;
 
-		System.out.println("Welcome, USERNAME. Choose a command or type \"help\" to view commands");
+		System.out.println("Welcome, " + user.getUsername() + ". Choose a command or type \"help\" to view commands");
 		while (true) {
 			System.out.print("Command => ");
 			command = scan.nextLine().toLowerCase();
@@ -40,6 +40,7 @@ public class Commands {
 			/* VIEW DETAILS */
 			else if (command.equals("list")) {
 				// Shows list of all movies in user list
+				System.out.println(trackerDAO.getUserMovies(user.getId()));
 			} else if (command.equals("database")) {
 				// Show all movies in database
 				for (Movie movie : movieDAO.getAllMovies()) {
@@ -65,9 +66,10 @@ public class Commands {
 					System.out.println("No movie found by that title. Aborting command...");
 					continue;
 				} else {
-					System.out.println(selected.getTitle() + "selected");
+					System.out.println(selected.getTitle() + " selected");
 					// Create Tracker object between user and selected movie
 					tracker = new Tracker(selected.getId(), user.getId());
+					trackerDAO.trackerExists(tracker);	// Updates tracker to get rating and status if already applied
 				}
 			}
 			/*
@@ -80,6 +82,8 @@ public class Commands {
 				} else if (command.equals("add")) {
 					// Adds movie from database into user's movie list
 					// Add tracker to database
+					trackerDAO.addUserMovie(tracker);
+					System.out.println(selected.getTitle() + " successfully added to user list");
 				}
 				// if trackerDAO method to check if tracker exists in database
 				if (trackerDAO.trackerExists(tracker)) {
@@ -87,6 +91,7 @@ public class Commands {
 						// Removes movie from user's movie list
 						// Note: Check if movie exists in list first
 						trackerDAO.removeUserMovie(tracker);
+						System.out.println(selected.getTitle() + " successfully removed from user list");
 					} else if (command.equals("status")) {
 						// Changes user status
 						// Note: Convert database int to readable string ("Plan to watch", "Completed")
@@ -112,7 +117,10 @@ public class Commands {
 							System.out.println("Not a valid status. Aborting command...");
 							continue;
 						}
-					} else if (command.equals("rate")) {
+					} else if (command.equals("viewrating") || command.equals("rating")) {
+						System.out.println("Rating for " + selected.getTitle() + ": " + tracker.getRating());
+					}
+					else if (command.equals("rate")) {
 						// Allows user to add/change rating of movie
 						System.out.print("Choose rating for " + selected.getTitle() + ": ");
 						int newRating = scan.nextInt();

@@ -1,5 +1,3 @@
-SELECT * FROM movie_tracker_db.users;
-
 Describe Users;
 
 INSERT INTO users ( userId, username, password, email, phoneNumber)
@@ -13,3 +11,5 @@ VALUES (3, 'Chris', '8910', 'bye@aol.com', 578919999);
 
 INSERT INTO users ( userId, username, password, email, phoneNumber)
 VALUES (4, 'xavier', '1112', 'fun@aol.com', 654789521);
+
+SELECT * FROM movie_tracker_db.users;
