@@ -9,6 +9,7 @@ public interface TrackerDAO {
 	public boolean removeUserMovie(Tracker tracked);
 	public boolean userMovieStatus(Tracker tracked, int status);
 	public boolean userMovieRating(Tracker tracked, int rating);
+	public boolean trackerExists(Tracker tracked);
 	
 	
 	
