@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class TrackerDAOClass implements TrackerDAO{
 		
 		try {
 			
-			PreparedStatement pstmt = conn.prepareStatement("Select * "
-					+ "from tracker join movies on movies.movieId = tracker.movieIdF"
-					+ "where userIdF = ?");
+			PreparedStatement pstmt = conn.prepareStatement("Select movieId, title, genre, length, summary "
+					+ "from tracker join movies on movies.movieId = tracker.movieIdF "
+					+ "where tracker.userIdF = ?");
 			pstmt.setInt(1, user_id);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -31,14 +32,17 @@ public class TrackerDAOClass implements TrackerDAO{
 				int id = rs.getInt("movieId");
 				String title = rs.getString("title");
 				String genre = rs.getString("genre");
-				//adding length and summary when added
+				Time length = rs.getTime("length");
+				String summary = rs.getString("summary");
 				
-				//Movie movie = new Movie(id,title,,genre);
-				//movieList.add(movie);
+				Movie movie = new Movie(id,title,length,summary,genre);
+				movieList.add(movie);
 			}
+			return movieList;
 			
 			
 		} catch(SQLException e) {
+			e.printStackTrace();
 			System.out.println("Could not retrieve list of departments from database");
 		}
 		
@@ -68,12 +72,12 @@ public class TrackerDAOClass implements TrackerDAO{
 	}
 
 	@Override
-	public boolean removeUserMovie(int user_id, int movie_id) {
+	public boolean removeUserMovie(Tracker tracked) {
 		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("DELETE from tracker WHERE user_id = ? and movie_id = ?");
-			pstmt.setInt(1, user_id);
-			pstmt.setInt(2, movie_id);
+			PreparedStatement pstmt = conn.prepareStatement("DELETE from tracker WHERE userIdF = ? and movieIdF = ?");
+			pstmt.setInt(1, tracked.getUser_id());
+			pstmt.setInt(2, tracked.getMovie_id());
 			
 			int i = pstmt.executeUpdate();
 			
@@ -82,7 +86,7 @@ public class TrackerDAOClass implements TrackerDAO{
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Movie with id = " + movie_id + " not found for this user.");
+			System.out.println("Movie with id = " + tracked.getMovie_id() + " not found for this user.");
 		}
 		
 		return false;
@@ -132,6 +136,29 @@ public class TrackerDAOClass implements TrackerDAO{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public boolean trackerExists(Tracker tracked) {
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("Select * from tracker WHERE userIdF = ? and movieIdF = ?");
+			pstmt.setInt(1, tracked.getUser_id());
+			pstmt.setInt(2, tracked.getMovie_id());
+			
+			ResultSet rs = pstmt.executeQuery();
+			boolean check = rs.next();
+			
+			
+			return check;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Movie with id = " + tracked.getMovie_id() + " not found for this user.");
+			return false;
+			
+		}
+		
 	}
 
 	
