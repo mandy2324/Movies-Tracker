@@ -12,8 +12,6 @@ public class Tracker {
 		super();
 		this.movie_id = movie_id;
 		this.user_id = user_id;
-		this.rating = 0;
-		this.status = 0;
 		
 	}
 
