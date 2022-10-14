@@ -103,6 +103,7 @@ public class TrackerDAOClass implements TrackerDAO{
 			pstmt.setInt(3, tracked.getUser_id());
 			
 			int i = pstmt.executeUpdate();
+			tracked.setStatus(status);
 			
 			if(i > 0) {
 				return true;
@@ -126,6 +127,7 @@ public class TrackerDAOClass implements TrackerDAO{
 			pstmt.setInt(3, tracked.getUser_id());
 			
 			int i = pstmt.executeUpdate();
+			tracked.setRating(rating);
 			
 			if(i > 0) {
 				return true;
@@ -147,8 +149,11 @@ public class TrackerDAOClass implements TrackerDAO{
 			pstmt.setInt(2, tracked.getMovie_id());
 			
 			ResultSet rs = pstmt.executeQuery();
-			boolean check = rs.next();
 			
+			
+			boolean check = rs.next();
+			tracked.setRating(rs.getInt("rating"));
+			tracked.setStatus(rs.getInt("status"));
 			
 			return check;
 			
