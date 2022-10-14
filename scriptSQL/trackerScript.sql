@@ -1,6 +1,7 @@
-CREATE DATABASE `movie_tracker_db`;
+DROP DATABASE IF EXISTS movie_tracker_db;
+CREATE DATABASE movie_tracker_db;
 
-use movie_tracker_db;
+USE movie_tracker_db;
 
 CREATE TABLE `movies` (
   `movieId` int NOT NULL AUTO_INCREMENT,
