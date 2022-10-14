@@ -19,9 +19,9 @@ public class MovieDAOClass implements MovieDAO{
 	@Override
 	public List<Movie> getAllMovies() {
 		try {
-			// find all the departments...
+			// find all the movies...
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM department");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM movies");
 			
 			List<Movie> movieList = new ArrayList<Movie>();
 			
@@ -44,7 +44,7 @@ public class MovieDAOClass implements MovieDAO{
 			return movieList;
 			
 		} catch (SQLException e) {
-			System.out.println("Could not retrieve list of departments from database");
+			System.out.println("Could not retrieve list of movies from database");
 		}
 		
 		// return null just in case exception is thrown
@@ -54,16 +54,14 @@ public class MovieDAOClass implements MovieDAO{
 	@Override
 	public Movie getMovieById(int movieId) {
 		try {
-			// set up prepared statement to get a department using its id
-			PreparedStatement pstmt = conn.prepareStatement("select * from department where movieId = ?");
+			// set up prepared statement to get a movie using its id
+			PreparedStatement pstmt = conn.prepareStatement("select * from movies where movieId = ?");
 			pstmt.setInt(1, movieId);
 			
 			ResultSet rs = pstmt.executeQuery();
+			rs.next();
 			
-			rs.first();
-			
-			
-			// retrieve all column info and save it to Department object and return that object
+			// retrieve all column info and save it to Movie object and return that object
 			int id = rs.getInt("movieId");
 			String title = rs.getString("title");
 			Time length = rs.getTime("length");
@@ -74,26 +72,26 @@ public class MovieDAOClass implements MovieDAO{
 			return movie;
 			
 		} catch (SQLException e) {
-			System.out.println("Department with id = " + movieId + " not found.");
+			System.out.println("Movie with id = " + movieId + " not found.");
 		}
 		
-		// if department not found, will return null
+		// if movie not found, will return null
 		return null;
 	}
 
 	@Override
 	public Movie getMovieByTitle(String title_) {
 		try {
-			// set up prepared statement to get a department using its id
-			PreparedStatement pstmt = conn.prepareStatement("select * from department where title = ?");
+			// set up prepared statement to get a movie using its id
+			PreparedStatement pstmt = conn.prepareStatement("select * from movies where title = ?");
 			pstmt.setString(1, title_);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			rs.first();
+			rs.next();
 			
 			
-			// retrieve all column info and save it to Department object and return that object
+			// retrieve all column info and save it to Movie object and return that object
 			int id = rs.getInt("movieId");
 			String title = rs.getString("title");
 			Time length = rs.getTime("length");
@@ -104,10 +102,10 @@ public class MovieDAOClass implements MovieDAO{
 			return movie;
 			
 		} catch (SQLException e) {
-			System.out.println("Department with id = " + title_ + " not found.");
+			System.out.println("Movie with title = " + title_ + " not found.");
 		}
 		
-		// if department not found, will return null
+		// if movie not found, will return null
 		return null;
 	}
 
