@@ -8,12 +8,21 @@ public class User {
 	private String password;
 	
 	//Constructor to initialize new Department Objects
+	public User() {
+		this.id=0;
+		this.username="";
+		this.password="";
+	}
+	
+
+	//Constructor to initialize new Department Objects
 	public User(int id, String username, String password) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 	}
+	
 	
 	//Getter and Setters to manipulate data directly
 	public int getId() {

@@ -61,7 +61,8 @@ public class ConnManagerWithProperties {
 	}
 	
 	// main only here to test our class is working correctly
-	public static void main(String[] args) {
+
+	public static void main(String [] args) {
 		
 		Connection conn = ConnManagerWithProperties.getConnection();
 		System.out.println("Made Connection");
