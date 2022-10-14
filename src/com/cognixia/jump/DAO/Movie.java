@@ -1,19 +1,23 @@
 package com.cognixia.jump.DAO;
 
+import java.sql.Time;
+
 public class Movie {
 
 	//Attributes for Movie to operate
 	private int id;
 	private String title;
-	private int length;
+	private Time length;
+	private String summary;
 	private String genre;
 	
 	//Constructor
-	public Movie(int id, String title, int length, String genre) {
+	public Movie(int id, String title, Time length, String summary, String genre) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.length = length;
+		this.summary = summary;
 		this.genre = genre;
 	}
 
@@ -34,12 +38,20 @@ public class Movie {
 		this.title = title;
 	}
 
-	public int getLength() {
+	public Time getLength() {
 		return length;
 	}
 
-	public void setLength(int length) {
+	public void setLength(Time length) {
 		this.length = length;
+	}
+	
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	public String getGenre() {
@@ -54,6 +66,8 @@ public class Movie {
 	public String toString() {
 		return "Movie [id=" + id + ", title=" + title + ", length=" + length + ", genre=" + genre + "]";
 	}
+
+	
 	
 	
 	
