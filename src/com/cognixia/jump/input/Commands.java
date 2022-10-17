@@ -59,6 +59,13 @@ public class Commands {
 							System.out.println("*----------------------------*");
 						}
 						System.out.println(trackerlist.get(i));
+						// prints tracker status and rating if it exists
+						Tracker temp = new Tracker(trackerlist.get(i).getId(), user.getId());
+						if (trackerDAO.trackerExists(temp)) {
+							// Print status and rating as well
+							System.out.println("Watch status: " + temp.getStatus());
+							System.out.println("User rating: " + temp.getRating());
+						}
 					}
 					System.out.println();
 				} else if (command.equals("database")) {
@@ -69,6 +76,13 @@ public class Commands {
 							System.out.println("*----------------------------*");
 						}
 						System.out.println(movieList.get(i));
+						// prints tracker status and rating if it exists
+						Tracker temp = new Tracker(movieList.get(i).getId(), user.getId());
+						if (trackerDAO.trackerExists(temp)) {
+							// Print status and rating as well
+							System.out.println("Watch status: " + temp.getStatus());
+							System.out.println("User rating: " + temp.getRating());
+						}
 					}
 				}
 	
