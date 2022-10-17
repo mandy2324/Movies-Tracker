@@ -25,7 +25,7 @@ Requirements
 
 ## Github Repo Link:
 
-[Movies Tracker](https://github.com/mandy2324/Project-2.git)
+[Movies Tracker](https://github.com/mandy2324/Movies-Tracker)
 
 ## Application Images:
 ![ERR Diagram](./images/ERR_Diagram.png)
