@@ -1,4 +1,4 @@
-package src.com.cognixia.jump.DAO;
+package com.cognixia.jump.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import src.com.cognixia.jump.connection.ConnManagerWithProperties;
+import com.cognixia.jump.connection.ConnManagerWithProperties;
 
 public class Admin extends User {
 
-	public Admin(int id, String username, String password) {
-		super(id, username, password);
+	public Admin() {
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -22,27 +22,26 @@ public class Admin extends User {
 		Scanner scan = new Scanner(System.in);
 
 		try {
-			String title, summary, genre, format;
-
-			int length;
+			String title, summary, genre, length;
 
 			System.out.println("Enter the title of the movie: ");
-			title = scan.next();
+			title = scan.nextLine();
 
-			System.out.println("Enter the length of the movie in minutes:");
-			length = scan.nextInt();
+			System.out.println("Enter the length of the movie in minutes: Ex. HH:MM:SS. Don't forget the ':'");
+			length = scan.next();
 
 			System.out.println("Enter the summary of the movie: ");
-			summary = scan.next();
+			scan.nextLine();
+			summary = scan.nextLine();
 
 			System.out.println("Enter the genre of the movie: ");
 			genre = scan.next();
 
-			String sql = "Insert Into movies Values ('" + title + "', '" + length + "', '" + summary + "', '" + genre
+			String sql = "Insert Into movies(title, length, summary, genre) Values ('" + title + "', '" + length + "', '" + summary + "', '" + genre
 					+ "')";
 			PreparedStatement p = null;
 			p = connection.prepareStatement(sql);
-			p.executeQuery();
+			p.execute();
 
 			System.out.println("Your movie has been added!");
 
@@ -77,8 +76,8 @@ public class Admin extends User {
 
 			System.out.println("Enter the ID of the movie you want to remove:");
 			idSel = scan.nextInt();
-			String sql2 = "Delete * From movies Where movieId='" + idSel + "'";
-			p.executeQuery(sql2);
+			String sql2 = "Delete From movies Where movieId='" + idSel + "'";
+			p.execute(sql2);
 			System.out.println("The selected movie has been removed!");
 
 			return;
@@ -122,11 +121,12 @@ public class Admin extends User {
 				String newTitle, sql2;
 
 				System.out.println("Enter the new title of the movie: ");
-				newTitle = scan.next();
+				scan.nextLine();
+				newTitle = scan.nextLine();
 
-				sql2 = "Update movies Set title='" + newTitle + "'";
+				sql2 = "Update movies Set title='" + newTitle + "' Where movieId='" + idSel + "'";
 
-				p.executeQuery(sql2);
+				p.execute(sql2);
 
 				System.out.println("The title of movie has been updated!");
 			}
@@ -135,28 +135,29 @@ public class Admin extends User {
 
 				String sql2;
 
-				int newLength;
+				String newLength;
 
-				System.out.println("Enter the new length of the movie in minutes: ");
-				newLength = scan.nextInt();
+				System.out.println("Enter the new length of the movie in minutes: Ex. HH:MM:SS. Don't forget the ':'");
+				newLength = scan.next();
 
-				sql2 = "Update movies Set title='" + newLength + "'";
+				sql2 = "Update movies Set length='" + newLength + "' Where movieId='" + idSel + "'";
 
-				p.executeQuery(sql2);
+				p.execute(sql2);
 
 				System.out.println("The length of movie has been updated!");
 			}
 
 			if (editSel == 3) {
 
-				String newSumamry, sql2;
+				String newSumamary, sql2;
 
 				System.out.println("Enter the new summary of the movie: ");
-				newSumamry = scan.next();
+				scan.nextLine();
+				newSumamary = scan.nextLine();
 
-				sql2 = "Update movies Set title='" + newSumamry + "'";
+				sql2 = "Update movies Set summary='" + newSumamary + "' Where movieId='" + idSel + "'";
 
-				p.executeQuery(sql2);
+				p.execute(sql2);
 
 				System.out.println("The summary of movie has been updated!");
 			}
@@ -168,9 +169,9 @@ public class Admin extends User {
 				System.out.println("Enter the new genre of the movie: ");
 				newGenre = scan.next();
 
-				sql2 = "Update movies Set title='" + newGenre + "'";
+				sql2 = "Update movies Set genre='" + newGenre + "' Where movieId='" + idSel + "'";
 
-				p.executeQuery(sql2);
+				p.execute(sql2);
 
 				System.out.println("The genre of movie has been updated!");
 			}
