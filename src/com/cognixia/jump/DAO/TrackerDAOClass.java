@@ -52,7 +52,11 @@ public class TrackerDAOClass implements TrackerDAO{
 
 	@Override
 	public boolean addUserMovie(Tracker tracked) {
-		
+		if (trackerExists(tracked)) {
+			// Already exists, do not add duplicate to list
+			System.out.println("Movie already exists in your list.");
+			return false;
+		}
 		try {
 		PreparedStatement pstmt = conn.prepareStatement("Insert into tracker(userIdF, movieIdF) values(?,?)");
 		pstmt.setInt(1, tracked.getUser_id());
