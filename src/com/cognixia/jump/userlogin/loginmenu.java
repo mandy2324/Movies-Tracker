@@ -31,7 +31,7 @@ public class loginmenu {
 
 		try {
 			System.out.println("If you would like to continue as admin enter a. If not enter anything else:");
-			adminSel = scan.next();
+			adminSel = scan.nextLine();
 			
 			if (adminSel.equals("a")) {
 				String adminPass, adminPassFile;
@@ -40,7 +40,7 @@ public class loginmenu {
 				Path path = Paths.get("resources/adminPass.txt");
 				
 				System.out.println("Enter the password to continue as admin:");
-				adminPass = scan.next();
+				adminPass = scan.nextLine();
 				
 				adminPassFile = Files.readString(path);
 				
@@ -48,6 +48,7 @@ public class loginmenu {
 					System.out.println("Enter 1 if you would like to add a movie.\n" +
 					"Enter 2 if you would like to remove a movie.\n" + "Enter 3 if you would like to edit a movie.\n");
 					selection = scan.nextInt();
+					scan.nextLine();
 					
 					if(selection == 1) {
 						new Admin().AddMovie();
@@ -63,22 +64,22 @@ public class loginmenu {
 			}
 			
 			System.out.println("If you would like to create a new account enter c. If not enter anything else:");
-			sel = scan.next();
+			sel = scan.nextLine();
 			
 			if (sel.equals("c")) {
 				String newUsername, newPassword, email, phoneNumber;
 				
 				System.out.println("Enter your username for your new account");
-				newUsername = scan.next();
+				newUsername = scan.nextLine();
 				
 				System.out.println("Enter your password for your new account");
-				newPassword = scan.next();
+				newPassword = scan.nextLine();
 				
 				System.out.println("Enter your email for your new account");
-				email = scan.next();
+				email = scan.nextLine();
 				
 				System.out.println("Enter your phone number for your new account");
-				phoneNumber = scan.next();
+				phoneNumber = scan.nextLine();
 				
 				user.addAccount(newUsername, newPassword, email, phoneNumber);
 			}
