@@ -64,7 +64,12 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "Movie [id=" + id + ", title=" + title + ", length=" + length + ", genre=" + genre + "]";
+		//return "Movie [id=" + id + ", title=" + title + ", length=" + length + ", genre=" + genre + "]";
+		return String.format("%d: %s\n"
+				+ "Length: %s\n"
+				+ "Genre: %s\n"
+				+ "Summary: %s",
+				id,title,length,genre,summary);
 	}
 
 	

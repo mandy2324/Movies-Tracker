@@ -152,8 +152,11 @@ public class TrackerDAOClass implements TrackerDAO{
 			
 			
 			boolean check = rs.next();
-			tracked.setRating(rs.getInt("rating"));
-			tracked.setStatus(rs.getInt("status"));
+			if (check) {
+				tracked.setRating(rs.getInt("rating"));
+				tracked.setStatus(rs.getInt("status"));
+			}
+			
 			
 			return check;
 			
