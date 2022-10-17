@@ -21,7 +21,9 @@ public class User {
 		this.password="";
 	}
 	
+
 	Connection connection = ConnManagerWithProperties.getConnection();
+
 
 	//Constructor to initialize new Department Objects
 	public User(int id, String username, String password) {
@@ -64,7 +66,7 @@ public class User {
 
 
 	public void addAccount(String username2, String password2, String email2, String phoneNumber2) {
-		
+
 		try {
 			PreparedStatement pstmt = connection.prepareStatement("Insert Into users(username, password, email, phoneNumber) " + "Values(?, ?, ?, ?)");
 			pstmt.setString(1, username2);

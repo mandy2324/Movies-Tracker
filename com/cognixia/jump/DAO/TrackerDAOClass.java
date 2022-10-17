@@ -52,7 +52,11 @@ public class TrackerDAOClass implements TrackerDAO{
 
 	@Override
 	public boolean addUserMovie(Tracker tracked) {
-		
+		if (trackerExists(tracked)) {
+			// Already exists, do not add duplicate to list
+			System.out.println("Movie already exists in your list.");
+			return false;
+		}
 		try {
 		PreparedStatement pstmt = conn.prepareStatement("Insert into tracker(userIdF, movieIdF) values(?,?)");
 		pstmt.setInt(1, tracked.getUser_id());
@@ -103,6 +107,7 @@ public class TrackerDAOClass implements TrackerDAO{
 			pstmt.setInt(3, tracked.getUser_id());
 			
 			int i = pstmt.executeUpdate();
+			tracked.setStatus(status);
 			
 			if(i > 0) {
 				return true;
@@ -126,6 +131,7 @@ public class TrackerDAOClass implements TrackerDAO{
 			pstmt.setInt(3, tracked.getUser_id());
 			
 			int i = pstmt.executeUpdate();
+			tracked.setRating(rating);
 			
 			if(i > 0) {
 				return true;
@@ -147,7 +153,13 @@ public class TrackerDAOClass implements TrackerDAO{
 			pstmt.setInt(2, tracked.getMovie_id());
 			
 			ResultSet rs = pstmt.executeQuery();
+			
+			
 			boolean check = rs.next();
+			if (check) {
+				tracked.setRating(rs.getInt("rating"));
+				tracked.setStatus(rs.getInt("status"));
+			}
 			
 			
 			return check;

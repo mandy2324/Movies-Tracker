@@ -23,8 +23,8 @@ public class loginmenu {
 	public static User userPrompt(Scanner scan) {
 		String username = null;
 		String password = null;
-		String sel = null;
 		String adminSel = null;
+		String sel = null;
 
 		User user = new User();
 		UserDAO userDAO = new UserDAOClass();
@@ -82,12 +82,13 @@ public class loginmenu {
 				
 				user.addAccount(newUsername, newPassword, email, phoneNumber);
 			}
-			
-			System.out.println("Please enter username: ");
-			username = scan.next();
 
-			System.out.println("Please enter password: ");
-			password = scan.next();
+			
+			System.out.print("Please enter username: ");
+			username = scan.nextLine();
+
+			System.out.print("Please enter password: ");
+			password = scan.nextLine();
 
 			user = userDAO.getUserbyUserName(username);
 
