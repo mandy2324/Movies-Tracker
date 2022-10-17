@@ -28,7 +28,7 @@ Requirements
 [Movies Tracker](https://github.com/mandy2324/Movies-Tracker)
 
 ## Application Images:
-![ERR Diagram](./images/ERR_Diagram.png)
+![ERR Diagram](.//images/ERR%20Diagram.png)
 
 ## Authors:
 
