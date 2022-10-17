@@ -3,6 +3,7 @@ package com.cognixia.jump.input;
 import com.cognixia.jump.DAO.*;
 import com.cognixia.jump.userlogin.loginmenu;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Commands {
@@ -10,7 +11,8 @@ public class Commands {
 
 	public static void main(String[] args) {
 
-		System.out.println("Welcome to Movies-Tracker.");
+		System.out.println("*---------------------------------------*\n" + "|       Welcome to Movies-Tracker       |\n"
+				+ "*---------------------------------------*");
 		System.out.println("Please login to continue");
 		String command = "";
 		// LOGIN METHOD HERE
@@ -34,14 +36,29 @@ public class Commands {
 						+ "show/view: Prints details of selected movie.\n"
 						+ "add: Adds selected movie to user's list.\n"
 						+ "remove: Removes selected movie from user's list.\n"
-						+ "status: Changes watch status of selected movie (Plan to Watch, Watched, On Hold).\n"
+						+ "status: Prints watch status of movie.\n"
+						+ "changestatus: Changes watch status of selected movie (Plan to Watch, Watched, On Hold).\n"
+						+ "rating: Prints user rating of selected movie.\n"
 						+ "rate: Adds or changes user rating of selected movie (1 to 10).\n"
 						+ "logout/exit: Exits the program.");
+			} else if (command.equals("logout") || command.equals("exit")) {
+				// Logout user, end program
+				System.out.println("Exiting program.");
+				scan.close();
+				System.exit(0);
 			}
 			/* VIEW DETAILS */
 			else if (command.equals("list")) {
 				// Shows list of all movies in user list
-				System.out.println(trackerDAO.getUserMovies(user.getId()));
+				List<Movie> trackerlist = trackerDAO.getUserMovies(user.getId());
+				System.out.println(user.getUsername() + "'s List:");
+				for (int i = 0; i < trackerlist.size(); i++) {
+					if (i != 0) {
+						System.out.println("*----------------------------*");
+					}
+					System.out.println(trackerlist.get(i));
+				}
+				System.out.println();
 			} else if (command.equals("database")) {
 				// Show all movies in database
 				for (Movie movie : movieDAO.getAllMovies()) {
@@ -70,7 +87,7 @@ public class Commands {
 					System.out.println(selected.getTitle() + " selected");
 					// Create Tracker object between user and selected movie
 					tracker = new Tracker(selected.getId(), user.getId());
-					trackerDAO.trackerExists(tracker);	// Updates tracker to get rating and status if already applied
+					trackerDAO.trackerExists(tracker); // Updates tracker to get rating and status if already applied
 				}
 			}
 			/*
@@ -80,6 +97,11 @@ public class Commands {
 				if (command.equals("show") || command.equals("view")) {
 					// Prints movie details
 					System.out.println(selected);
+					if (trackerDAO.trackerExists(tracker)) {
+						// Print status and rating as well
+						System.out.println("Watch status: " + tracker.getStatus());
+						System.out.println("User rating: " + tracker.getRating());
+					}
 				} else if (command.equals("add")) {
 					// Adds movie from database into user's movie list
 					// Add tracker to database
@@ -120,22 +142,20 @@ public class Commands {
 						}
 					} else if (command.equals("viewrating") || command.equals("rating")) {
 						System.out.println("Rating for " + selected.getTitle() + ": " + tracker.getRating());
-					}
-					else if (command.equals("rate")) {
+					} else if (command.equals("rate")) {
 						// Allows user to add/change rating of movie
 						System.out.print("Choose rating for " + selected.getTitle() + ": ");
 						int newRating = scan.nextInt();
 						trackerDAO.userMovieRating(tracker, newRating);
+						System.out.println(selected.getTitle() + " rated as " + newRating);
+						scan.nextLine(); // Buffers out the newline after reading int
+					} else {
+						System.out.println("Command not found");
 					}
+				} else {
+					System.out.println("Command not found");
 				}
 
-			}
-
-			else if (command.equals("logout") || command.equals("exit")) {
-				// Logout user, end program
-				
-				System.exit(0);
-                scan.close();
 			} else {
 				System.out.println("Command not found");
 			}
