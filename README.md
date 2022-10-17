@@ -37,7 +37,7 @@ Requirements
 - [Github](https://github.com/chriswoo59)
 - [Linkedin](https://www.linkedin.com/in/cwoo59/)
 
-### Daivion Parter
+### Daivion Prater
 
 - [Github](https://github.com/dprater1)
 - [Linkedin](https://www.linkedin.com/in/daivion-prater-a6b04a205/)
