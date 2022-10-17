@@ -80,18 +80,19 @@ public class UserDAOClass implements UserDAO {
 	public User getUserbyUserName(String username) {
 		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("select * from user where user_name = ?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from users where username = ?");
 			pstmt.setString(1, username);
 
 			ResultSet rs = pstmt.executeQuery();
 
 			rs.next();
 
-			int id = rs.getInt("user_id");
-			String name = rs.getString("user_name");
-			String phone = rs.getString("user_phone");
+			int id = rs.getInt("userId");
+			String name = rs.getString("username");
+			String password = rs.getString("password");
+			
 
-			User user = new User(id, name, phone);
+			User user = new User(id, name, password);
 			return user;
 
 		} catch (SQLException e) {
