@@ -1,6 +1,5 @@
 package com.cognixia.jump.userlogin;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 import com.cognixia.jump.DAO.User;
 import com.cognixia.jump.DAO.UserDAO;
@@ -32,7 +31,7 @@ public class loginmenu {
 
 			user = userDAO.getUserbyUserName(username);
 
-			if (user == null || user.getPassword() != password) {
+			if (user == null || !user.getPassword().equals(password)) {
 				throw new LoginMenuException();
 			} else {
 				return user;
