@@ -1,7 +1,7 @@
 # Movies-Tracker
 
 ## Description 
-This is an application that can track the progress for a user for different topics from a data repository. You can also view if some task is not completed, in-progress, or completed.
+This is an application that can track the progress for a user for different topics from a data repository. You can also view if some task is not completed, on-hold, or completed.
 
 ## Application concept:
 A user who accesses your application will be able to pick from a list of those shows and put them into 3 categories: plan to watch, currently watching, and finished watching.
