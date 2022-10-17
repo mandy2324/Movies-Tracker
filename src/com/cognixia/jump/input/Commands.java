@@ -63,8 +63,12 @@ public class Commands {
 					System.out.println();
 				} else if (command.equals("database")) {
 					// Show all movies in database
-					for (Movie movie : movieDAO.getAllMovies()) {
-						System.out.println(movie);
+					List<Movie> movieList = movieDAO.getAllMovies();
+					for (int i = 0; i < movieList.size(); i++) {
+						if (i != 0) {
+							System.out.println("*----------------------------*");
+						}
+						System.out.println(movieList.get(i));
 					}
 				}
 	
@@ -107,11 +111,15 @@ public class Commands {
 					} else if (command.equals("add")) {
 						// Adds movie from database into user's movie list
 						// Add tracker to database
-						trackerDAO.addUserMovie(tracker);
-						System.out.println(selected.getTitle() + " successfully added to user list");
+						if (trackerDAO.addUserMovie(tracker)) {
+							System.out.println(selected.getTitle() + " successfully added to user list");
+						}
+						else {
+							System.out.println("Failed to add " + selected.getTitle() + " to user list");
+						}
 					}
 					// if trackerDAO method to check if tracker exists in database
-					if (trackerDAO.trackerExists(tracker)) {
+					else if (trackerDAO.trackerExists(tracker)) {
 						if (command.equals("remove")) {
 							// Removes movie from user's movie list
 							// Note: Check if movie exists in list first
